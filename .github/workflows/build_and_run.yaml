@@ -1,0 +1,26 @@
+name: Build and upload
+on: [push]
+jobs:
+  build:
+    name: Build on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-2019]
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: jurplel/install-qt-action@v2
+
+      - name: Compile!
+        run: |
+          mkdir build_x64
+          cd build_x64
+          cmake ../ -A x64
+          cd ..
+        env:
+          CMAKE_PREFIX_PATH: C:/Qt/5.15.2/msvc2019_64/
+
+      - uses: actions/upload-artifact@v2
+        with:
+          path: ./build_x64/
