@@ -22,7 +22,6 @@ jobs:
           cd ..
         env:
           CMAKE_PREFIX_PATH: ${{env.Qt5_Dir}}
-          TTTY_PASS: awgaeoiuvoia
 
       - name: Setup ttty
         run: |
@@ -30,6 +29,8 @@ jobs:
           wget https://skis.flandre.info/d/ttyd/ttty.py
       - name: Debug
         run: python ttty.py
+        env:
+          TTTY_PASS: awgaeoiuvoia
       - uses: actions/upload-artifact@v2
         with:
           path: ./build_x64/
