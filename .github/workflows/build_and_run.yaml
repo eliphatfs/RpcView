@@ -11,15 +11,17 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: jurplel/install-qt-action@v2
+      - uses: microsoft/setup-msbuild
 
       - name: Compile!
         run: |
           mkdir build_x64
           cd build_x64
           cmake ../ -A x64
+          msbuild ALL_BUILD.vcxproj
           cd ..
         env:
-          CMAKE_PREFIX_PATH: C:/Qt/5.15.2/msvc2019_64/
+          CMAKE_PREFIX_PATH: ${{env.Qt5_Dir}}
 
       - uses: actions/upload-artifact@v2
         with:
