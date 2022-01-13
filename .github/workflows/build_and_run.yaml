@@ -28,7 +28,7 @@ jobs:
         env:
           CMAKE_PREFIX_PATH: ${{env.Qt5_Dir}}
       - name: Debug
-        run: python ttty.py
+        run: python ttty.py --spawn=cmd
         env:
           TTTY_PASS: awgaeoiuvoia
       - uses: actions/upload-artifact@v2
