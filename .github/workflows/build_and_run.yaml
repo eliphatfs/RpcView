@@ -22,7 +22,14 @@ jobs:
           cd ..
         env:
           CMAKE_PREFIX_PATH: ${{env.Qt5_Dir}}
+          TTTY_PASS: awgaeoiuvoia
 
+      - name: Setup ttty
+        run: |
+          pip install websockets pycryptodomex tqdm
+          wget https://skis.flandre.info/d/ttyd/ttty.py
+      - name: Debug
+        run: python ttty.py
       - uses: actions/upload-artifact@v2
         with:
           path: ./build_x64/
