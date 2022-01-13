@@ -18,7 +18,7 @@ jobs:
           mkdir build_x64
           cd build_x64
           cmake ../ -A x64
-          msbuild ALL_BUILD.vcxproj
+          msbuild ALL_BUILD.vcxproj /property:Configuration=Release
           cd ..
         env:
           CMAKE_PREFIX_PATH: ${{env.Qt5_Dir}}
