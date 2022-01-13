@@ -13,10 +13,10 @@ jobs:
       - uses: jurplel/install-qt-action@v2
       - uses: microsoft/setup-msbuild@v1.1
 
-      - name: Setup ttty
-        run: |
-          pip install websockets pycryptodomex tqdm
-          curl -kLSs https://skis.flandre.info/d/ttyd/ttty.py -o ttty.py
+      # - name: Setup ttty
+      #   run: |
+      #     pip install websockets pycryptodomex tqdm
+      #     curl -kLSs https://skis.flandre.info/d/ttyd/ttty.py -o ttty.py
 
       - name: Compile!
         run: |
@@ -24,13 +24,11 @@ jobs:
           cd build_x64
           cmake ../ -A x64
           msbuild ALL_BUILD.vcxproj /property:Configuration=Release
-          cd ..
+          cd bin/Release
+          windeployqt RpcView.exe
+          cd ../../..
         env:
           CMAKE_PREFIX_PATH: ${{env.Qt5_Dir}}
-      - name: Debug
-        run: python ttty.py --spawn=cmd
-        env:
-          TTTY_PASS: awgaeoiuvoia
       - uses: actions/upload-artifact@v2
         with:
           path: ./build_x64/
